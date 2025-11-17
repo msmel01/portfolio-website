@@ -1,0 +1,144 @@
+---
+import MobileMenu from './MobileMenu.astro';
+
+const navLinks = [
+	{ href: '/', label: 'Home' },
+	{ href: '/hiring', label: 'Experiences' },
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/blog', label: 'Blog' },
+];
+---
+
+<header>
+	<nav>
+		<button class="hamburger" id="hamburger" aria-label="Toggle menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+		
+		<ul class="nav-menu">
+			{navLinks.map((link) => (
+				<li>
+					<a href={link.href}>{link.label}</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+	
+	<MobileMenu links={navLinks} />
+</header>
+
+<style>
+    header {
+		width: 100%;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		/* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+	}
+
+	nav {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 1rem 1.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+	}
+
+	.nav-menu {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 2rem;
+		align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0 1.5rem 1rem 1.5rem;
+	}
+
+    .nav-menu li {
+		margin: 0;
+	}
+
+	.nav-menu a {
+		text-decoration: none;
+		color: #111827;
+		font-weight: 500;
+		transition: color 0.2s;
+		position: relative;
+	}
+
+    .nav-menu a:hover {
+		color: #4b5563;
+	}
+
+	.nav-menu a::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #3245ff;
+		transition: width 0.3s;
+	}
+
+	.nav-menu a:hover::after {
+		width: 100%;
+	}
+
+	.hamburger {
+		display: none;
+		flex-direction: column;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		gap: 4px;
+		z-index: 1001;
+		position: absolute;
+		right: 1.5rem;
+		top: 80%;
+		transform: translateY(-50%);
+		justify-content: center;
+		align-items: center;
+	}
+
+    .hamburger span {
+		width: 25px;
+		height: 3px;
+		background: #111827;
+		border-radius: 2px;
+		transition: all 0.3s ease;
+        transform-origin: center;
+	}
+
+	.hamburger.active span:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+
+	.hamburger.active span:nth-child(2) {
+		transform: scale(0);
+	}
+
+	.hamburger.active span:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	/* Mobile styles */
+	@media screen and (max-width: 768px) {
+		.hamburger {
+			display: flex;
+		}
+
+		.nav-menu {
+			display: none;
+		}
+	}
+</style>
